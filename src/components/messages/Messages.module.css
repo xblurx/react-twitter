@@ -1,0 +1,12 @@
+.messages {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    grid-template-columns: 4fr 8fr;
+}
+
+.peopleAvatar {
+    border-radius: 50%;
+    width: 8vh;
+    margin-right: 2rem;
+}

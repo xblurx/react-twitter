@@ -1,0 +1,35 @@
+.post div {
+	display: inline-block;
+	vertical-align: middle;
+	/* margin-bottom: 2rem; */
+}
+
+.postAvatar {
+	border-radius: 50%;
+	width: 10vh;
+}
+
+.post p {
+	/* margin-left: 3rem; */
+	justify-content: center;
+}
+
+.likes {
+	font-weight: bold;
+	margin-left: 2rem;
+	margin-top: 4rem;
+}
+
+.message {
+	margin-left: 2rem;
+}
+
+.likes img {
+	width: 4vh;
+	height: auto;
+}
+
+.likes p {
+	text-align: center;
+	margin-top: 0rem;
+}

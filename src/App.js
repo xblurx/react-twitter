@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Home } from './components/home/Home';
+import Header from './components/header/Header';
+import Messages from './components/messages/Messages';
+import NavigationBar from './components/nav/Nav';
+import Profile from './components/profile/Profile';
+import Music from './components/music/Music';
+import Videos from './components/videos/Videos';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import s from './App.module.css'
+import { Container, Row, Col } from 'react-bootstrap';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+
+const App = (props) => {
+	return (
+        <Router>
+            <Container fluid>
+                <Row>
+                    <Header />
+                </Row>
+                <Row>
+                    <Col md={2}>
+                        <NavigationBar />
+                    </Col>
+                    <div className={s.vl}></div>
+                    <Col md={9}>
+                        <Route exact path='/' component={Home} />
+                        <Route
+                            path='/profile'
+                            render={() => <Profile profilePage={props.state.profilePage} />}
+                        />
+                        <Route
+                            path='/messages'
+                            render={() => <Messages state={props.state.messagesPage} />}
+                        />
+                        <Route path='/music' component={Music} />
+                        <Route path='/videos' component={Videos} />
+                    </Col>
+                </Row>
+            </Container>
+        </Router>
+    );
+};
 
 export default App;
