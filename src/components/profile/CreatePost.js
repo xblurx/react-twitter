@@ -1,15 +1,17 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import {Form, Button} from 'react-bootstrap';
 
 const CreatePost = (props) => {
     let ref = React.createRef();
-    let addPost = () => {
-        props.profilePage.addPost();
+    let addPost = (e) => {
+        e.preventDefault();
+        props.functions.addPost();
+        props.functions.changeNewPostText('');
     };
 
     let changePostText = () => {
         let message = ref.current.value;
-        props.profilePage.changeNewPostText(message);
+        props.functions.changeNewPostText(message);
     };
 
     return (
@@ -25,7 +27,7 @@ const CreatePost = (props) => {
                         onChange={changePostText}
                     />
                 </Form.Group>
-                <Button variant='primary' type='button' onClick={addPost}>
+                <Button variant='primary' type='submit' onClick={addPost}>
                     Create
                 </Button>
             </Form>

@@ -5,11 +5,12 @@ export const CreateMessage = (props) => {
     let ref = React.createRef();
     let addMessage = (e) => {
         e.preventDefault();
-        props.messagesPage.addMessage();
+        props.functions.addMessage();
+        props.functions.changeNewMsgText('');
     };
     let changeMsgText = () => {
         let msg = ref.current.value;
-        props.messagesPage.changeNewMsgText(msg);
+        props.functions.changeNewMsgText(msg);
     };
     return (
         <div className='col-md-6'>
