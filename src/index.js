@@ -1,7 +1,7 @@
 import React from 'react';
 import App from './App';
 import ReactDOM from 'react-dom';
-import state, { updateTree } from './redux/state';
+import state from './redux/state';
 
 export let renderTree = () => {
     ReactDOM.render(<App state={state} />, document.getElementById('root'));
@@ -9,4 +9,4 @@ export let renderTree = () => {
 
 renderTree(state);
 
-updateTree(renderTree);
+state.subscriber(renderTree);

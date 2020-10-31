@@ -1,8 +1,8 @@
-let renderTree = () => {
-    console.log('state render');
-};
-
 let state = {
+    rerenderTree: () => {},
+    subscriber(observer) {
+        this.rerenderTree = observer;
+    },
     profilePage: {
         posts: [
             {
@@ -22,7 +22,7 @@ let state = {
         newPostText: '',
         changeNewPostText(text) {
             this.newPostText = text;
-            renderTree();
+            state.rerenderTree();
         },
         addPost() {
             let p = this.posts;
@@ -34,7 +34,7 @@ let state = {
             };
             this.posts.push(post);
             this.newPostText = '';
-            renderTree();
+            state.rerenderTree();
         },
         profile: {
             name: 'Avril Lavigne',
@@ -75,25 +75,21 @@ let state = {
             { id: 5, text: 'Im not a superman!' },
         ],
         newMsgText: '',
-        changeNewMsgText: (text) => {
-            state.messagesPage.newMsgText = text;
-            renderTree();
+        changeNewMsgText(text) {
+            this.newMsgText = text;
+            state.rerenderTree();
         },
-        addMessage: () => {
-            let messages = state.messagesPage.messages;
+        addMessage() {
+            let messages = this.messages;
             let msg = {
                 id: messages[messages.length - 1].id + 1,
-                text: state.messagesPage.newMsgText,
+                text: this.newMsgText,
             };
-            state.messagesPage.messages.push(msg);
-            state.messagesPage.newMsgText = '';
-            renderTree();
+            this.messages.push(msg);
+            this.newMsgText = '';
+            state.rerenderTree();
         },
     },
-};
-
-export const updateTree = (obs) => {
-    renderTree = obs;
 };
 
 window.state = state;
