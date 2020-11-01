@@ -2,15 +2,13 @@ import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 export const CreateMessage = (props) => {
-    let ref = React.createRef();
     let addMessage = (e) => {
         e.preventDefault();
-        props.functions.addMessage();
-        props.functions.changeNewMsgText('');
+        props.dispatch({type: 'addMessage'});
+        props.dispatch({type: 'changeNewMsgText', text: ''});
     };
-    let changeMsgText = () => {
-        let msg = ref.current.value;
-        props.functions.changeNewMsgText(msg);
+    let changeMsgText = (e) => {
+        props.dispatch({type: 'changeNewMsgText', text: e.target.value});
     };
     return (
         <div className='col-md-6'>
@@ -20,7 +18,6 @@ export const CreateMessage = (props) => {
                     <Form.Control
                         as='textarea'
                         rows='4'
-                        ref={ref}
                         value={props.messagesPage.newMsgText}
                         onChange={changeMsgText}
                     />

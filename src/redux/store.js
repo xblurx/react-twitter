@@ -1,3 +1,6 @@
+import {profileReducer} from "./profile-reducer";
+import {messagesReducer} from "./messages-reducer";
+
 let store = {
     _state: {
         profilePage: {
@@ -58,58 +61,20 @@ let store = {
             newMsgText: '',
         },
     },
+    _callSubscriber: () => {
+        console.log('call subscribe');
+    },
     getState() {
         return this._state;
     },
-    _callSubscriber: () => {
-    },
-    subscriber(observer) {
+    subscribe(observer) {
         this._callSubscriber = observer;
     },
-    changeNewPostText(text) {
-        this.getState().profilePage.newPostText = text;
-        store._callSubscriber();
+    dispatch(action) {
+        this.getState().profilePage = profileReducer(this.getState().profilePage, action);
+        this.getState().messagesPage = messagesReducer(this.getState().messagesPage, action);
+        this._callSubscriber();
     },
-    getLikesCount() {
-        return String(Math.floor(Math.random() * Math.floor(500)));
-    },
-    addPost() {
-        let posts = this.getState().profilePage.posts;
-        let newPostText = this.getState().profilePage.newPostText
-        let post = {
-            id: posts[posts.length - 1].id + 1,
-            message: newPostText,
-            img: posts[posts.length - 1].img,
-            likes: this.getLikesCount(),
-        };
-        posts.push(post);
-        newPostText = '';
-        store._callSubscriber();
-    },
-    changeNewMsgText(text) {
-        this.getState().messagesPage.newMsgText = text;
-        store._callSubscriber();
-    },
-    addMessage() {
-        let messages = this.getState().messagesPage.messages;
-        let newMsgText = this.getState().messagesPage.newMsgText
-        let msg = {
-            id: messages[messages.length - 1].id + 1,
-            text: newMsgText,
-        };
-        messages.push(msg);
-        newMsgText = '';
-        store._callSubscriber();
-    },
-    getFunctions() {
-        return {
-            changeNewPostText: this.changeNewPostText.bind(store),
-            getLikesCount: this.getLikesCount.bind(store),
-            addPost: this.addPost.bind(store),
-            changeNewMsgText: this.changeNewMsgText.bind(store),
-            addMessage: this.addMessage.bind(store),
-        };
-    }
 };
 
 window.state = store.getState();

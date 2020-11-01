@@ -2,16 +2,14 @@ import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 
 const CreatePost = (props) => {
-    let ref = React.createRef();
     let addPost = (e) => {
         e.preventDefault();
-        props.functions.addPost();
-        props.functions.changeNewPostText('');
+        props.dispatch({type: 'addPost'});
+        props.dispatch({type: 'changeNewPostText', text: ''});
     };
 
-    let changePostText = () => {
-        let message = ref.current.value;
-        props.functions.changeNewPostText(message);
+    let changePostText = (e) => {
+        props.dispatch({type: 'changeNewPostText', text: e.target.value});
     };
 
     return (
@@ -22,7 +20,6 @@ const CreatePost = (props) => {
                     <Form.Control
                         as='textarea'
                         rows='4'
-                        ref={ref}
                         value={props.profilePage.newPostText}
                         onChange={changePostText}
                     />

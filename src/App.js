@@ -26,11 +26,11 @@ const App = (props) => {
                         <Route exact path='/' component={Home}/>
                         <Route
                             path='/profile'
-                            render={() => <Profile profilePage={props.state.profilePage} functions={props.functions}/>}
+                            render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}
                         />
                         <Route
                             path='/messages'
-                            render={() => <Messages state={props.state.messagesPage} functions={props.functions}/>}
+                            render={() => <Messages state={props.state.messagesPage} dispatch={props.dispatch}/>}
                         />
                         <Route path='/music' component={Music}/>
                         <Route path='/videos' component={Videos}/>

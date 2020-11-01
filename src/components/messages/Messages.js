@@ -18,7 +18,7 @@ const Messages = (props) => {
                     <Col>{messageComponents}</Col>
                 </Row>
                 <Row className='justify-content-end'>
-                    <CreateMessage messagesPage={props.state} functions={props.functions} style={{ float: 'right' }} />
+                    <CreateMessage messagesPage={props.state} dispatch={props.dispatch} style={{ float: 'right' }} />
                 </Row>
             </Col>
         </Row>
