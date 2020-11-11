@@ -1,5 +1,5 @@
-import {profileReducer} from "./profile-reducer";
-import {messagesReducer} from "./messages-reducer";
+import { profileReducer } from './profile-reducer';
+import { messagesReducer } from './messages-reducer';
 
 let store = {
     _state: {
@@ -43,7 +43,8 @@ let store = {
                 {
                     id: 3,
                     name: 'Vi',
-                    avatar: 'https://cdn.techlector.com/wp-content/uploads/2020/04/MEMOJI2.jpg',
+                    avatar:
+                        'https://cdn.techlector.com/wp-content/uploads/2020/04/MEMOJI2.jpg',
                 },
                 {
                     id: 4,
@@ -53,10 +54,10 @@ let store = {
                 },
             ],
             messages: [
-                {id: 1, text: 'i cant do this all on my own'},
-                {id: 2, text: 'no, I know, Im not a superman'},
-                {id: 4, text: 'uuuu uuu uuu uuu uuu'},
-                {id: 5, text: 'Im not a superman!'},
+                { id: 1, text: 'i cant do this all on my own' },
+                { id: 2, text: 'no, I know, Im not a superman' },
+                { id: 4, text: 'uuuu uuu uuu uuu uuu' },
+                { id: 5, text: 'Im not a superman!' },
             ],
             newMsgText: '',
         },
@@ -71,8 +72,14 @@ let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        this.getState().profilePage = profileReducer(this.getState().profilePage, action);
-        this.getState().messagesPage = messagesReducer(this.getState().messagesPage, action);
+        this.getState().profilePage = profileReducer(
+            this.getState().profilePage,
+            action
+        );
+        this.getState().messagesPage = messagesReducer(
+            this.getState().messagesPage,
+            action
+        );
         this._callSubscriber();
     },
 };

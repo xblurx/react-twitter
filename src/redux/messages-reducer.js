@@ -1,5 +1,5 @@
-const ADD_MESSAGE = 'addMessage'
-const CHANGE_MESSAGE_TEXT = 'changeNewMsgText'
+const ADD_MESSAGE = 'addMessage';
+const CHANGE_MESSAGE_TEXT = 'changeNewMsgText';
 
 let initState = {
     people: [
@@ -18,7 +18,8 @@ let initState = {
         {
             id: 3,
             name: 'Vi',
-            avatar: 'https://cdn.techlector.com/wp-content/uploads/2020/04/MEMOJI2.jpg',
+            avatar:
+                'https://cdn.techlector.com/wp-content/uploads/2020/04/MEMOJI2.jpg',
         },
         {
             id: 4,
@@ -28,31 +29,32 @@ let initState = {
         },
     ],
     messages: [
-        {id: 1, text: 'i cant do this all on my own'},
-        {id: 2, text: 'no, I know, Im not a superman'},
-        {id: 4, text: 'uuuu uuu uuu uuu uuu'},
-        {id: 5, text: 'Im not a superman!'},
+        { id: 1, text: 'i cant do this all on my own' },
+        { id: 2, text: 'no, I know, Im not a superman' },
+        { id: 4, text: 'uuuu uuu uuu uuu uuu' },
+        { id: 5, text: 'Im not a superman!' },
     ],
     newMsgText: '',
-}
+};
 
 export const messagesReducer = (state = initState, action) => {
-    // eslint-disable-next-line default-case
     switch (action.type) {
         case ADD_MESSAGE:
-            let messages = state.messages;
-            let newMsgText = state.newMsgText
-            let msg = {
-                id: messages[messages.length - 1].id + 1,
-                text: newMsgText,
+            let message = {
+                id: state.messages[state.messages.length - 1].id + 1,
+                text: state.newMsgText,
             };
-            messages.push(msg);
-            newMsgText = '';
-            return state;
+            return {
+                ...state,
+                messages: [...state.messages, message],
+                newMsgText: '',
+            };
         case CHANGE_MESSAGE_TEXT:
-            state.newMsgText = action.text;
-            return state;
+            return {
+                ...state,
+                newMsgText: action.text,
+            };
         default:
             return state;
     }
-}
+};

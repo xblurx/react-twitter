@@ -1,35 +1,33 @@
 .post div {
-	display: inline-block;
-	vertical-align: middle;
-	/* margin-bottom: 2rem; */
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .postAvatar {
-	border-radius: 50%;
-	width: 10vh;
+    border-radius: 50%;
+    width: 10vh;
 }
 
 .post p {
-	/* margin-left: 3rem; */
-	justify-content: center;
+    justify-content: center;
 }
 
 .likes {
-	font-weight: bold;
-	margin-left: 2rem;
-	margin-top: 4rem;
+    font-weight: bold;
+    margin-left: 2rem;
+    margin-top: 4rem;
 }
 
 .message {
-	margin-left: 2rem;
+    margin-left: 2rem;
 }
 
 .likes img {
-	width: 4vh;
-	height: auto;
+    width: 4vh;
+    height: auto;
 }
 
 .likes p {
-	text-align: center;
-	margin-top: 0rem;
+    text-align: center;
+    margin-top: 0;
 }

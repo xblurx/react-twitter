@@ -1,5 +1,5 @@
-const ADD_POST = 'addPost'
-const CHANGE_POST_TEXT = 'changeNewPostText'
+const ADD_POST = 'addPost';
+const CHANGE_POST_TEXT = 'changeNewPostText';
 
 let initState = {
     posts: [
@@ -23,26 +23,28 @@ let initState = {
         avatar:
             'https://avatars.yandex.net/get-music-content/3226792/508b3a1b.p.58069/s400x400',
     },
-}
+};
 
-export const profileReducer = (state=initState, action) => {
+export const profileReducer = (state = initState, action) => {
     switch (action.type) {
         case ADD_POST:
-            let posts = state.posts;
-            let newPostText = state.newPostText
             let post = {
-                id: posts[posts.length - 1].id + 1,
-                message: newPostText,
-                img: posts[posts.length - 1].img,
+                id: state.posts[state.posts.length - 1].id + 1,
+                message: state.newPostText,
+                img: state.posts[state.posts.length - 1].img,
                 likes: String(Math.floor(Math.random() * Math.floor(500))),
             };
-            posts.push(post);
-            newPostText = '';
-            return state;
+            return {
+                ...state,
+                posts: [...state.posts, post],
+                newPostText: '',
+            };
         case CHANGE_POST_TEXT:
-            state.newPostText = action.text;
-            return state;
+            return {
+                ...state,
+                newPostText: action.text,
+            };
         default:
             return state;
     }
-}
+};
