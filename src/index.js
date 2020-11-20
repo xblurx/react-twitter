@@ -1,7 +1,7 @@
 import React from 'react';
 import App from './App';
 import ReactDOM from 'react-dom';
-import {store} from './redux/redux-store';
+import { store } from './redux/redux-store';
 
 export let renderTree = () => {
     ReactDOM.render(
@@ -9,5 +9,4 @@ export let renderTree = () => {
         document.getElementById('root')
     );
 };
-
 renderTree(store.getState());

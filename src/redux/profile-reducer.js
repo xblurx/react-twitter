@@ -1,5 +1,6 @@
 const ADD_POST = 'addPost';
 const CHANGE_POST_TEXT = 'changeNewPostText';
+const SET_USER_PROFILE = 'setUserProfile';
 
 let initState = {
     posts: [
@@ -43,6 +44,11 @@ export const profileReducer = (state = initState, action) => {
             return {
                 ...state,
                 newPostText: action.text,
+            };
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile,
             };
         default:
             return state;

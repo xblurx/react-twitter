@@ -7,7 +7,7 @@ import Loader from "./Loader";
 
 class Users extends React.Component {
     componentDidMount() {
-        this.props.dispatch({ type: 'toggleLoader', isFetching: true });
+        this.props.dispatch({type: 'toggleLoader', isFetching: true});
         axios
             .get(
                 `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.usersPage.currentPage}&count=${this.props.usersPage.pageSize}`
@@ -18,9 +18,10 @@ class Users extends React.Component {
                     users: response.data.items,
                     totalCount: response.data.totalCount / 100,
                 });
-                this.props.dispatch({ type: 'toggleLoader', isFetching: false });
+                this.props.dispatch({type: 'toggleLoader', isFetching: false});
             });
     }
+
     render() {
         return (
             <div>

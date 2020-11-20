@@ -28,7 +28,7 @@ const App = () => {
                         <Col md={9}>
                             <Route exact path="/" component={Home} />
                             <Route
-                                path="/profile"
+                                path="/profile/:userId?"
                                 render={() => <ProfileContainer />}
                             />
                             <Route

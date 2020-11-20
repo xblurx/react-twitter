@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Col, Row } from 'react-bootstrap';
+import {Button, Col, Row} from 'react-bootstrap';
+import {NavLink} from "react-router-dom";
 
 const Wrapper = styled.div`
     width: 600px;
@@ -20,14 +21,17 @@ const User = (props) => {
     return (
         <Row>
             <Col md="2" className="mt-4 pl-5">
-                <Img
-                    src={
-                        !props.user.photos.small
-                            ? 'https://highxtar.com/wp-content/uploads/2020/07/highxtar-apple-new-emojis-4.png'
-                            : props.user.photos.small
-                    }
-                    alt="nonzo"
-                />
+                <NavLink to={`/profile/${props.user.id}`}>
+                    <Img
+                        src={
+                            !props.user.photos.small
+                                ? 'https://highxtar.com/wp-content/uploads/2020/07/highxtar-apple-new-emojis-4.png'
+                                : props.user.photos.small
+                        }
+                        alt="nonzo"
+                    />
+                </NavLink>
+
                 <div className="mt-3">
                     <Button
                         variant="primary"
