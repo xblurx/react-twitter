@@ -4,14 +4,27 @@ import Loader from '../../users/Loader';
 
 const ProfilePerson = (props) => {
     if (!props.profile.photos) {
-        return <Loader isFetching={true} />;
+        if (!props.profile.avatar) {
+            return <Loader isFetching={true} />;
+        }
     }
     return (
         <div>
             <div className={s.profileAvatar}>
-                <img src={props.profile.photos.large} alt="" />
+                <img
+                    src={
+                        props.profile.avatar
+                            ? props.profile.avatar
+                            : props.profile.photos.large
+                    }
+                    alt=""
+                />
                 <div className={s.profileName}>
-                    <h2>{props.profile.fullName}</h2>
+                    <h2>
+                        {props.profile.avatar
+                            ? props.profile.name
+                            : props.profile.fullName}
+                    </h2>
                 </div>
             </div>
         </div>

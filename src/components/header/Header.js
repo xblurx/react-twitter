@@ -1,15 +1,21 @@
 import React from 'react';
-import './Header.css';
+import { Navbar } from 'react-bootstrap';
 
-const Header = () => {
+const Header = (props) => {
     return (
-        <header className="header">
-            <img
-                src="https://www.cineramageddon.com/wp-content/uploads/2020/06/twitter-logo.png"
-                alt=""
-                width="10%"
-            />
-        </header>
+        <Navbar bg="light">
+            <Navbar.Brand>
+                <img
+                    src="https://www.cineramageddon.com/wp-content/uploads/2020/06/twitter-logo.png"
+                    alt=""
+                    width="10%"
+                />
+            </Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse className="justify-content-end">
+                <Navbar.Text>{!props.auth.isAuth ? 'Log in' : `Signed in as ${props.auth.login}`}</Navbar.Text>
+            </Navbar.Collapse>
+        </Navbar>
     );
 };
 

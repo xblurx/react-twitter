@@ -1,6 +1,5 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
-import * as axios from 'axios';
 
 const Paginationz = (props) => {
     let currentPage = props.usersPage.currentPage;
@@ -8,20 +7,8 @@ const Paginationz = (props) => {
     let totalCount = Math.ceil(props.usersPage.totalCount / pageSize);
     let pages = [];
     let onClick = (pageNum) => {
-        props.dispatch({ type: 'toggleLoader', isFetching: true });
-        props.dispatch({ type: 'setCurrentPage', currentPage: pageNum });
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${props.usersPage.pageSize}`
-            )
-            .then((response) => {
-                props.dispatch({
-                    type: 'setUsers',
-                    users: response.data.items,
-                    totalCount: response.data.totalCount / 100,
-                });
-                props.dispatch({ type: 'toggleLoader', isFetching: false });
-            });
+        props.setCurrentPage(pageNum)
+        props.getUsers(pageNum, pageSize);
     };
     for (let i = 1; i <= totalCount; i++) {
         pages.push(

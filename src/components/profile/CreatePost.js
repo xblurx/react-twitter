@@ -4,12 +4,12 @@ import { Form, Button } from 'react-bootstrap';
 const CreatePost = (props) => {
     let addPost = (e) => {
         e.preventDefault();
-        props.dispatch({ type: 'addPost' });
-        props.dispatch({ type: 'changeNewPostText', text: '' });
+        props.addPost()
+        props.changePostText('')
     };
 
     let changePostText = (e) => {
-        props.dispatch({ type: 'changeNewPostText', text: e.target.value });
+        props.changePostText(e.target.value)
     };
     return (
         <div className="mt-5 col-md-5">

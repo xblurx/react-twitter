@@ -35,12 +35,7 @@ const User = (props) => {
                 <div className="mt-3">
                     <Button
                         variant="primary"
-                        onClick={() =>
-                            props.dispatch({
-                                type: 'toggleFollow',
-                                userId: props.user.id,
-                            })
-                        }
+                        onClick={() => props.toggleFollow(props.user.id)}
                     >
                         {props.user.following ? 'Unfollow' : 'Follow'}
                     </Button>

@@ -1,53 +1,32 @@
+import { getAPI } from '../api/api';
+
 const TOGGLE_FOLLOW = 'toggleFollow';
 const SET_USERS = 'setUsers';
 const SET_CURRENT_PAGE = 'setCurrentPage';
 const TOGGLE_LOADER = 'toggleLoader';
 
 let initState = {
-    // users: [
-    //     {
-    //         id: 1,
-    //         following: true,
-    //         avatarUrl:
-    //             'https://highxtar.com/wp-content/uploads/2020/07/highxtar-apple-new-emojis-4.png',
-    //         fullName: 'Natalie',
-    //         status: "I'm a pos!",
-    //         location: {
-    //             city: 'Nizhny Novgorod',
-    //             country: 'Russia',
-    //         },
-    //     },
-    //     {
-    //         id: 2,
-    //         following: false,
-    //         avatarUrl:
-    //             'https://highxtar.com/wp-content/uploads/2020/07/highxtar-apple-new-emojis-4.png',
-    //         fullName: 'Ron',
-    //         status: 'Ginger',
-    //         location: {
-    //             city: 'The Burrow',
-    //             country: 'UK',
-    //         },
-    //     },
-    //     {
-    //         id: 3,
-    //         following: true,
-    //         avatarUrl:
-    //             'https://highxtar.com/wp-content/uploads/2020/07/highxtar-apple-new-emojis-4.png',
-    //         fullName: 'Jian Yang',
-    //         status: 'Errich Bachman is a fat and a poor',
-    //         location: {
-    //             city: 'Mountain Views',
-    //             country: 'USA',
-    //         },
-    //     },
-    // ],
     users: [],
     totalCount: 10,
     pageSize: 5,
     currentPage: 1,
     isFetching: false,
 };
+
+export const toggleFollow = (userId) => ({ type: TOGGLE_FOLLOW, userId });
+export const setUsers = (users, totalCount) => ({
+    type: SET_USERS,
+    users,
+    totalCount,
+});
+export const setCurrentPage = (currentPage) => ({
+    type: SET_CURRENT_PAGE,
+    currentPage,
+});
+export const toggleLoader = (isFetching) => ({
+    type: TOGGLE_LOADER,
+    isFetching,
+});
 
 export const usersReducer = (state = initState, action) => {
     switch (action.type) {
@@ -56,7 +35,7 @@ export const usersReducer = (state = initState, action) => {
                 ...state,
                 users: state.users.map((user) => {
                     if (user.id === action.userId) {
-                        return {...user, following: !user.following};
+                        return { ...user, following: !user.following };
                     }
                     return user;
                 }),
@@ -80,4 +59,12 @@ export const usersReducer = (state = initState, action) => {
         default:
             return state;
     }
+};
+
+export const getUsers = (currentPage, pageSize) => (dispatch) => {
+    dispatch(toggleLoader(true));
+    getAPI.getUsers(currentPage, pageSize).then((data) => {
+        dispatch(setUsers(data.items, data.totalCount / 100));
+        dispatch(toggleLoader(false));
+    });
 };

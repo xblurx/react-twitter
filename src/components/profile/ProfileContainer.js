@@ -1,38 +1,33 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Profile from './Profile';
-import React from "react";
-import * as axios from "axios";
-import {withRouter} from "react-router-dom";
-
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import {
+    addPost,
+    changePostText,
+    getProfile,
+} from '../../redux/profile-reducer';
 
 class ProfileClassContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2;
+            this.render();
         }
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/profile/${userId}`
-            )
-            .then((response) => {
-                this.props.dispatch({
-                    type: 'setUserProfile',
-                    profile: response.data,
-                });
-            });
+        this.props.getProfile(userId);
     }
 
     render() {
-        return (
-            <Profile {...this.props} />
-        );
+        return <Profile {...this.props} />;
     }
 }
 
-let mapStateToProps = (state) => ({profilePage: state.profilePage});
-let manDispatchToProps = (dispatch) => ({dispatch: dispatch});
+const mapStateToProps = (state) => ({ profilePage: state.profilePage });
 
-let ProfileContainer = withRouter(ProfileClassContainer)
+let ProfileContainer = withRouter(ProfileClassContainer);
 
-export default connect(mapStateToProps, manDispatchToProps)(ProfileContainer);
+export default connect(mapStateToProps, {
+    getProfile,
+    addPost,
+    changePostText,
+})(ProfileContainer);

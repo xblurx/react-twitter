@@ -1,9 +1,17 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Users from './Users';
+import {
+    getUsers,
+    setCurrentPage,
+    toggleFollow,
+} from '../../redux/users-reducer';
 
-let mapStateToProps = (state) => ({usersPage: state.usersPage});
-let mapDispatchToProps = (dispatch) => ({dispatch: dispatch});
+const mapStateToProps = (state) => ({ usersPage: state.usersPage });
 
-let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+let UsersContainer = connect(mapStateToProps, {
+    toggleFollow,
+    setCurrentPage,
+    getUsers,
+})(Users);
 
 export default UsersContainer;
