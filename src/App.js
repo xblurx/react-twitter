@@ -12,6 +12,7 @@ import ProfileContainer from './components/profile/ProfileContainer';
 import MessagesContainer from './components/messages/MessagesContainer';
 import UsersContainer from './components/users/UsersContainer';
 import HeaderContainer from './components/header/HeaderContainer';
+import Login from './components/login/Login';
 
 const App = () => {
     return (
@@ -39,6 +40,7 @@ const App = () => {
                             />
                             <Route path="/music" component={Music} />
                             <Route path="/videos" component={Videos} />
+                            <Route path="/login" component={Login} />
                         </Col>
                     </Row>
                 </Container>

@@ -1,8 +1,8 @@
 import React from 'react';
 import Message from './messageItem/MessageItem';
 import MessagePeople from './messagePeople/MessagePeople';
-import {CreateMessage} from './CreateMessage';
-import {Col, Row} from 'react-bootstrap';
+import { CreateMessage } from './CreateMessage';
+import { Col, Row } from 'react-bootstrap';
 
 const Messages = (props) => {
     let peopleComponents = props.messagesPage.people.map((p) => (
