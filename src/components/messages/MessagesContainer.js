@@ -14,6 +14,4 @@ const enhance = compose(
     connect(mapStateToProps, mapDispatchToProps)
 );
 
-const MessagesContainer = enhance(Messages);
-
-export default MessagesContainer;
+export default enhance(Messages);
