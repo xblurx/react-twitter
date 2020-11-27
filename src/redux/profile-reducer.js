@@ -3,6 +3,7 @@ import { getAPI } from '../api/api';
 const ADD_POST = 'addPost';
 const CHANGE_POST_TEXT = 'changeNewPostText';
 const SET_USER_PROFILE = 'setUserProfile';
+const SET_STATUS = 'setUserStatus';
 
 let initState = {
     posts: [
@@ -26,6 +27,7 @@ let initState = {
         avatar:
             'https://avatars.yandex.net/get-music-content/3226792/508b3a1b.p.58069/s400x400',
     },
+    status: '',
 };
 
 export const profileReducer = (state = initState, action) => {
@@ -52,17 +54,35 @@ export const profileReducer = (state = initState, action) => {
                 ...state,
                 profile: action.profile,
             };
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status,
+            };
         default:
             return state;
     }
 };
 
 const setUserProfile = (data) => ({ type: SET_USER_PROFILE, profile: data });
+export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const changePostText = (text) => ({ type: CHANGE_POST_TEXT, text });
 export const addPost = () => ({ type: ADD_POST });
 
 export const getProfile = (userId) => (dispatch) => {
     getAPI.getProfile(userId).then((data) => {
         dispatch(setUserProfile(data));
+    });
+};
+
+export const getStatus = (userId) => (dispatch) => {
+    getAPI.getStatus(userId).then((data) => {
+        dispatch(setStatus(data));
+    });
+};
+
+export const updateStatus = (status) => (dispatch) => {
+    getAPI.updateStatus(status).then((resultCode) => {
+        if (resultCode === 0) dispatch(setStatus(status));
     });
 };

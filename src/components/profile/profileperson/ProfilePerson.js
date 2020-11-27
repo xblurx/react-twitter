@@ -1,33 +1,43 @@
 import React from 'react';
-import s from './ProfilePerson.module.css';
 import Loader from '../../users/Loader';
+import { Col, Row } from 'react-bootstrap';
+import styled from 'styled-components';
+import Status from './Status';
+
+const Avatar = styled.img`
+    width: 50%;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+`;
 
 const ProfilePerson = (props) => {
+    console.log(`ProfilePerson props: ${props.status}`)
     if (!props.profile.photos) {
         if (!props.profile.avatar) {
             return <Loader isFetching={true} />;
         }
     }
     return (
-        <div>
-            <div className={s.profileAvatar}>
-                <img
+        <Row>
+            <Col md={4}>
+                <Avatar
                     src={
                         props.profile.avatar
                             ? props.profile.avatar
                             : props.profile.photos.large
                     }
-                    alt=""
                 />
-                <div className={s.profileName}>
-                    <h2>
-                        {props.profile.avatar
-                            ? props.profile.name
-                            : props.profile.fullName}
-                    </h2>
-                </div>
-            </div>
-        </div>
+            </Col>
+            <Col>
+                <h2>
+                    {props.profile.avatar
+                        ? props.profile.name
+                        : props.profile.fullName}
+                </h2>
+                <Status status={props.status} updateStatus={props.updateStatus}/>
+            </Col>
+        </Row>
     );
 };
 

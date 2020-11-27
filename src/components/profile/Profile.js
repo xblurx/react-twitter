@@ -4,9 +4,15 @@ import MyPosts from './posts/MyPosts';
 import ProfilePerson from './profileperson/ProfilePerson';
 
 const Profile = (props) => {
+    console.log(`Profile props: ${props.status}`)
+
     return (
         <div>
-            <ProfilePerson profile={props.profilePage.profile} />
+            <ProfilePerson
+                profile={props.profilePage.profile}
+                status={props.profilePage.status}
+                updateStatus={props.updateStatus}
+            />
             <CreatePost
                 profilePage={props.profilePage}
                 addPost={props.addPost}

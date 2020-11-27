@@ -6,20 +6,24 @@ import {
     addPost,
     changePostText,
     getProfile,
+    getStatus,
+    updateStatus,
 } from '../../redux/profile-reducer';
 import { compose } from 'redux';
-import withAuthRedirect from '../../hocs/withAuthRedirect';
 
-class ProfileClassContainer extends React.Component {
+class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            this.render();
+            userId = 2;
+            // this.render();
         }
+        this.props.getStatus(userId);
         this.props.getProfile(userId);
     }
 
     render() {
+        console.log(`ProfileContainer props: ${this.props.status}`)
         return <Profile {...this.props} />;
     }
 }
@@ -28,13 +32,12 @@ const mapStateToProps = (state) => ({
     profilePage: state.profilePage,
 });
 
-const ProfileContainer = withRouter(ProfileClassContainer);
-
 const enhance = compose(
     withRouter,
-    withAuthRedirect,
     connect(mapStateToProps, {
         getProfile,
+        getStatus,
+        updateStatus,
         addPost,
         changePostText,
     })
