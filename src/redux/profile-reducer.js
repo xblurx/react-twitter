@@ -1,7 +1,6 @@
 import { getAPI } from '../api/api';
 
 const ADD_POST = 'addPost';
-const CHANGE_POST_TEXT = 'changeNewPostText';
 const SET_USER_PROFILE = 'setUserProfile';
 const SET_STATUS = 'setUserStatus';
 
@@ -21,7 +20,6 @@ let initState = {
             likes: '214',
         },
     ],
-    newPostText: '',
     profile: {
         name: 'Avril Lavigne',
         avatar:
@@ -35,19 +33,13 @@ export const profileReducer = (state = initState, action) => {
         case ADD_POST:
             let post = {
                 id: state.posts[state.posts.length - 1].id + 1,
-                message: state.newPostText,
+                message: action.message,
                 img: state.posts[state.posts.length - 1].img,
                 likes: String(Math.floor(Math.random() * Math.floor(500))),
             };
             return {
                 ...state,
                 posts: [...state.posts, post],
-                newPostText: '',
-            };
-        case CHANGE_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.text,
             };
         case SET_USER_PROFILE:
             return {
@@ -66,8 +58,7 @@ export const profileReducer = (state = initState, action) => {
 
 const setUserProfile = (data) => ({ type: SET_USER_PROFILE, profile: data });
 export const setStatus = (status) => ({ type: SET_STATUS, status });
-export const changePostText = (text) => ({ type: CHANGE_POST_TEXT, text });
-export const addPost = () => ({ type: ADD_POST });
+export const addPost = (message) => ({ type: ADD_POST, message});
 
 export const getProfile = (userId) => (dispatch) => {
     getAPI.getProfile(userId).then((data) => {
@@ -83,6 +74,6 @@ export const getStatus = (userId) => (dispatch) => {
 
 export const updateStatus = (status) => (dispatch) => {
     getAPI.updateStatus(status).then((resultCode) => {
-        if (resultCode === 0) dispatch(setStatus(status));
+        if (!resultCode) dispatch(setStatus(status));
     });
 };

@@ -12,7 +12,6 @@ const Avatar = styled.img`
 `;
 
 const ProfilePerson = (props) => {
-    console.log(`ProfilePerson props: ${props.status}`)
     if (!props.profile.photos) {
         if (!props.profile.avatar) {
             return <Loader isFetching={true} />;
@@ -35,7 +34,10 @@ const ProfilePerson = (props) => {
                         ? props.profile.name
                         : props.profile.fullName}
                 </h2>
-                <Status status={props.status} updateStatus={props.updateStatus}/>
+                <Status
+                    status={props.status}
+                    updateStatus={props.updateStatus}
+                />
             </Col>
         </Row>
     );

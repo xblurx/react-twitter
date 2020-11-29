@@ -3,7 +3,7 @@ import React from 'react';
 class Status extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { editMode: false };
+        this.state = { value: this.props.status, editMode: false };
     }
 
     handleChange = (e) => {
@@ -13,6 +13,12 @@ class Status extends React.Component {
         this.setState({ editMode: !this.state.editMode });
         this.props.updateStatus(this.state.value);
     };
+
+    componentDidUpdate(prevProps, prevState,snapshot) {
+        if (this.props.status !== prevProps.status) {
+            this.setState({value: this.props.status})
+        }
+    }
 
     render() {
         return (

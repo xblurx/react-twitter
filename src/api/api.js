@@ -3,6 +3,9 @@ import * as axios from 'axios';
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
+    headers: {
+        'API-KEY': 'e10bc01d-c5b3-4b52-acbf-fababe719ef1',
+    },
 });
 
 export const getAPI = {
@@ -25,8 +28,24 @@ export const getAPI = {
             .then((response) => response.data);
     },
     updateStatus(status) {
+        console.warn('deprecated method updateStatus');
+        return putAPI.updateStatus(status);
+    },
+};
+
+export const putAPI = {
+    updateStatus(status) {
         return instance
-            .put(`profile/status`, {status: status})
+            .put('profile/status', { status })
             .then((response) => response.resultCode);
+    },
+    login(data = null) {
+        let { email, password, rememberMe } = data;
+        return instance
+            .post('auth/login', { email, password, rememberMe })
+            .then((response) => response.data);
+    },
+    logout() {
+        return instance.delete('auth/login');
     },
 };

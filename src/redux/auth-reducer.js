@@ -1,4 +1,4 @@
-import { getAPI } from '../api/api';
+import { getAPI, putAPI } from '../api/api';
 
 const SET_AUTH_DATA = 'checkAuth';
 
@@ -6,10 +6,8 @@ let initState = {
     id: null,
     email: null,
     login: null,
-    isAuth: false,
+    isAuth: null,
 };
-
-const checkAuth = (data) => ({ type: SET_AUTH_DATA, data });
 
 export const authReducer = (state = initState, action) => {
     switch (action.type) {
@@ -17,17 +15,47 @@ export const authReducer = (state = initState, action) => {
             return {
                 ...state,
                 ...action.data,
-                isAuth: true,
             };
         default:
             return state;
     }
 };
 
+const setAuth = (id, email, login, isAuth) => ({
+    type: SET_AUTH_DATA,
+    data: {
+        id,
+        email,
+        login,
+        isAuth,
+    },
+});
+
 export const getAuth = () => (dispatch) => {
-    getAPI.authMe().then((data) => {
-        if (data.resultCode === 0) {
-            dispatch(checkAuth(data.data));
+    return getAPI.authMe().then((data) => {
+        if (!data.resultCode) {
+            console.log('authReducer getAuth write auth');
+            let { id, email, login } = data.data;
+            dispatch(setAuth(id, email, login, true));
+            console.log(`state after auth-reducer/getAuth: ${window.store.getState().auth.isAuth}`);
+        }
+    });
+};
+
+export const logIn = (loginData) => (dispatch) => {
+    console.log(`login data from form in logIn thunk: ${loginData}`);
+    putAPI.login(loginData).then((response) => {
+        console.log(response);
+        if (!response.resultCode) {
+            dispatch(getAuth());
+        }
+    });
+};
+
+export const logOut = () => (dispatch) => {
+    putAPI.logout().then((response) => {
+        if (!response.resultCode) {
+            dispatch(setAuth(null, null, null, false));
         }
     });
 };

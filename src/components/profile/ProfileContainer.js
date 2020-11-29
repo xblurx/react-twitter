@@ -1,21 +1,22 @@
-import { connect } from 'react-redux';
-import Profile from './Profile';
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
+import Profile from './Profile';
 import {
     addPost,
-    changePostText,
     getProfile,
     getStatus,
     updateStatus,
 } from '../../redux/profile-reducer';
-import { compose } from 'redux';
+import { withAuthRedirect } from '../../hocs/withAuthRedirect';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = 2;
+            userId = this.props.userId;
+            // avril lavigne
             // this.render();
         }
         this.props.getStatus(userId);
@@ -23,24 +24,24 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
-        console.log(`ProfileContainer props: ${this.props.status}`)
         return <Profile {...this.props} />;
     }
 }
 
 const mapStateToProps = (state) => ({
     profilePage: state.profilePage,
+    userId: state.auth.id,
 });
 
 const enhance = compose(
-    withRouter,
     connect(mapStateToProps, {
         getProfile,
         getStatus,
         updateStatus,
         addPost,
-        changePostText,
-    })
+    }),
+    withRouter,
+    withAuthRedirect
 );
 
 export default enhance(ProfileContainer);

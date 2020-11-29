@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'addMessage';
-const CHANGE_MESSAGE_TEXT = 'changeNewMsgText';
 
 let initState = {
     people: [
@@ -34,25 +33,20 @@ let initState = {
         { id: 4, text: 'uuuu uuu uuu uuu uuu' },
         { id: 5, text: 'Im not a superman!' },
     ],
-    newMsgText: '',
 };
+
+export const addMessage = (msgText) => ({type: ADD_MESSAGE, msgText})
 
 export const messagesReducer = (state = initState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
             let message = {
                 id: state.messages[state.messages.length - 1].id + 1,
-                text: state.newMsgText,
+                text: action.msgText,
             };
             return {
                 ...state,
                 messages: [...state.messages, message],
-                newMsgText: '',
-            };
-        case CHANGE_MESSAGE_TEXT:
-            return {
-                ...state,
-                newMsgText: action.text,
             };
         default:
             return state;

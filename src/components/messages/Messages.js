@@ -21,8 +21,7 @@ const Messages = (props) => {
                 </Row>
                 <Row className="justify-content-end">
                     <CreateMessage
-                        messagesPage={props.messagesPage}
-                        dispatch={props.dispatch}
+                        addMessage={props.addMessage}
                     />
                 </Row>
             </Col>

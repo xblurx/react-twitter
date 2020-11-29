@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Nav, Navbar, NavLink } from 'react-bootstrap';
 
 const Header = (props) => {
     return (
@@ -13,7 +13,19 @@ const Header = (props) => {
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
-                <Navbar.Text>{!props.auth.isAuth ? 'Log in' : `Signed in as ${props.auth.login}`}</Navbar.Text>
+                <Navbar.Text className="mr-3">
+                    {!props.auth.isAuth ? (
+                        <Nav.Link href="/login">Log in</Nav.Link>
+                    ) : (
+                        `Signed in as ${props.auth.login}`
+                    )}
+                </Navbar.Text>
+
+                <Navbar.Text>
+                    {props.auth.isAuth && (
+                        <NavLink onClick={props.logOut}>Log out</NavLink>
+                    )}
+                </Navbar.Text>
             </Navbar.Collapse>
         </Navbar>
     );
