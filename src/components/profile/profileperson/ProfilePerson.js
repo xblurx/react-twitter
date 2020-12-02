@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from '../../users/Loader';
 import { Col, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import Status from './Status';
+import StatusHooks from './StatusHooks';
 
 const Avatar = styled.img`
     width: 50%;
@@ -12,6 +12,7 @@ const Avatar = styled.img`
 `;
 
 const ProfilePerson = (props) => {
+    debugger;
     if (!props.profile.photos) {
         if (!props.profile.avatar) {
             return <Loader isFetching={true} />;
@@ -22,9 +23,7 @@ const ProfilePerson = (props) => {
             <Col md={4}>
                 <Avatar
                     src={
-                        props.profile.avatar
-                            ? props.profile.avatar
-                            : props.profile.photos.large
+                        'https://avatars.yandex.net/get-music-content/3226792/508b3a1b.p.58069/s400x400'
                     }
                 />
             </Col>
@@ -34,7 +33,11 @@ const ProfilePerson = (props) => {
                         ? props.profile.name
                         : props.profile.fullName}
                 </h2>
-                <Status
+                {/*<Status*/}
+                {/*    status={props.status}*/}
+                {/*    updateStatus={props.updateStatus}*/}
+                {/*/>*/}
+                <StatusHooks
                     status={props.status}
                     updateStatus={props.updateStatus}
                 />

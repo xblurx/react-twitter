@@ -3,7 +3,7 @@ import LoginForm from './LoginForm';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { logIn } from '../../redux/auth-reducer';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const LoginContainer = (props) => {
     const onSubmit = (dataObject) => {
@@ -21,7 +21,7 @@ const LoginContainer = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth,
+    isAuth: state.auth.isAuth
 });
 
 const enhance = compose(
