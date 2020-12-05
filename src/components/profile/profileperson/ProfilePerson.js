@@ -1,8 +1,8 @@
 import React from 'react';
-import Loader from '../../users/Loader';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import styled from 'styled-components';
-import StatusHooks from './StatusHooks';
+import Status from './StatusHooks';
+import { useForm } from 'react-hook-form';
 
 const Avatar = styled.img`
     width: 50%;
@@ -11,38 +11,47 @@ const Avatar = styled.img`
     margin: auto;
 `;
 
-const ProfilePerson = (props) => {
-    debugger;
-    if (!props.profile.photos) {
-        if (!props.profile.avatar) {
-            return <Loader isFetching={true} />;
+const ProfilePerson = ({ profile, status, updateStatus, saveAvatar }) => {
+    const [register, handleSubmit] = useForm();
+    const submitPhoto = (e) => {
+        if (e.target.files.length) {
+            saveAvatar(e.target.files[0]);
         }
-    }
+    };
     return (
-        <Row>
-            <Col md={4}>
-                <Avatar
-                    src={
-                        'https://avatars.yandex.net/get-music-content/3226792/508b3a1b.p.58069/s400x400'
-                    }
-                />
-            </Col>
-            <Col>
-                <h2>
-                    {props.profile.avatar
-                        ? props.profile.name
-                        : props.profile.fullName}
-                </h2>
-                {/*<Status*/}
-                {/*    status={props.status}*/}
-                {/*    updateStatus={props.updateStatus}*/}
-                {/*/>*/}
-                <StatusHooks
-                    status={props.status}
-                    updateStatus={props.updateStatus}
-                />
-            </Col>
-        </Row>
+        <>
+            <Row>
+                <Col md={4}>
+                    <Avatar
+                        src={
+                            profile === null
+                                ? 'https://avatars.yandex.net/get-music-content/3226792/508b3a1b.p.58069/s400x400'
+                                : profile.photos.small
+                        }
+                    />
+                </Col>
+                <Col>
+                    <h2>
+                        {profile === null ? 'Avril Lavigne' : profile.fullName}
+                    </h2>
+                    <Status status={status} updateStatus={updateStatus} />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Form onSubmit={handleSubmit(submitPhoto)}>
+                        <Form.Group>
+                            <Form.File
+                                id="photo-form"
+                                name="image"
+                                label="Upload a photo to change your profile image :)"
+                                ref={register}
+                            />
+                        </Form.Group>
+                    </Form>
+                </Col>
+            </Row>
+        </>
     );
 };
 

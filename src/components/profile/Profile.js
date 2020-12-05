@@ -10,6 +10,7 @@ const Profile = (props) => {
                 profile={props.profilePage.profile}
                 status={props.profilePage.status}
                 updateStatus={props.updateStatus}
+                saveAvatar={props.saveAvatar}
             />
             <CreatePost
                 profilePage={props.profilePage}

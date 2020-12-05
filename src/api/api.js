@@ -39,6 +39,12 @@ export const putAPI = {
             .put('profile/status', { status })
             .then((response) => response.resultCode);
     },
+    updateAvatar(file) {
+        const formData = new FormData(file);
+        return instance
+            .put('profile/photo', formData)
+            .then((response) => response.data);
+    },
     login(data = null) {
         let { email, password, rememberMe } = data;
         return instance

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Button, Col, Row} from 'react-bootstrap';
-import {NavLink} from "react-router-dom";
+import { Button, Col, Row } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 const Wrapper = styled.div`
     width: 600px;

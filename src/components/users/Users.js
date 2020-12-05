@@ -1,7 +1,7 @@
 import React from 'react';
 import User from './User';
-import Paginationz from './Pagination';
 import Loader from './Loader';
+import Pagination from './Pagination';
 
 class Users extends React.Component {
     componentDidMount() {
@@ -12,10 +12,9 @@ class Users extends React.Component {
         return (
             <div>
                 <div>
-                    <Paginationz
-                        usersPage={this.props.usersPage}
-                        isFetching={this.props.usersPage.isFetching}
-                        setCurrentPage={this.props.setCurrentPage}
+                    <Pagination
+                        totalItemsCount={this.props.usersPage.totalCount}
+                        currentPage={this.props.usersPage.currentPage}
                         getUsers={this.props.getUsers}
                     />
                 </div>

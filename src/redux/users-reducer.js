@@ -9,7 +9,7 @@ let initState = {
     users: [],
     totalCount: 10,
     pageSize: 5,
-    currentPage: 1,
+    pageNum: 1,
     isFetching: false,
 };
 
@@ -19,9 +19,9 @@ export const setUsers = (users, totalCount) => ({
     users,
     totalCount,
 });
-export const setCurrentPage = (currentPage) => ({
+export const setCurrentPage = (pageNum) => ({
     type: SET_CURRENT_PAGE,
-    currentPage,
+    pageNum,
 });
 export const toggleLoader = (isFetching) => ({
     type: TOGGLE_LOADER,
@@ -49,7 +49,7 @@ export const usersReducer = (state = initState, action) => {
         case SET_CURRENT_PAGE:
             return {
                 ...state,
-                currentPage: action.currentPage,
+                pageNum: action.pageNum,
             };
         case TOGGLE_LOADER:
             return {
@@ -61,10 +61,17 @@ export const usersReducer = (state = initState, action) => {
     }
 };
 
-export const getUsers = (currentPage, pageSize) => (dispatch) => {
+/*export const getUsers = (pageNum, pageSize) => async (dispatch) => {
     dispatch(toggleLoader(true));
-    getAPI.getUsers(currentPage, pageSize).then((data) => {
-        dispatch(setUsers(data.items, data.totalCount / 100));
-        dispatch(toggleLoader(false));
-    });
+    let data = await getAPI.getUsers(pageNum, pageSize);
+    dispatch(setUsers(data.items, data.totalCount / 100));
+    dispatch(toggleLoader(false));
+};*/
+
+export const getUsers = (pageNum, pageSize) => async (dispatch) => {
+    dispatch(toggleLoader(true));
+    dispatch(setCurrentPage(pageNum));
+    let data = await getAPI.getUsers(pageNum, pageSize);
+    dispatch(setUsers(data.items, data.totalCount / 100));
+    dispatch(toggleLoader(false));
 };

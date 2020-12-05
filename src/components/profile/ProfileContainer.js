@@ -6,7 +6,7 @@ import Profile from './Profile';
 import {
     addPost,
     getProfile,
-    getStatus,
+    getStatus, saveAvatar,
     updateStatus,
 } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hocs/withAuthRedirect';
@@ -16,8 +16,6 @@ class ProfileContainer extends React.Component {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.userId;
-            // avril lavigne
-            // this.render();
         }
         this.props.getStatus(userId);
         this.props.getProfile(userId);
@@ -39,6 +37,7 @@ const enhance = compose(
         getStatus,
         updateStatus,
         addPost,
+        saveAvatar,
     }),
     withRouter,
     withAuthRedirect
