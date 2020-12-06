@@ -11,6 +11,8 @@ const Profile = (props) => {
                 status={props.profilePage.status}
                 updateStatus={props.updateStatus}
                 saveAvatar={props.saveAvatar}
+                isOwnPage={props.isOwnPage}
+                updateProfile={props.updateProfile}
             />
             <CreatePost
                 profilePage={props.profilePage}

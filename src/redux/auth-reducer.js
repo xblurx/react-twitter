@@ -43,7 +43,6 @@ export const getAuth = () => (dispatch) => {
 };
 
 export const logIn = (loginData) => (dispatch) => {
-    console.log(`login data from form in logIn thunk: ${loginData}`);
     putAPI.login(loginData).then((response) => {
         console.log(response);
         if (!response.resultCode) {

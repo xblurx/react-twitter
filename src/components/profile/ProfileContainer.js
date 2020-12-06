@@ -2,17 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-import Profile from './Profile';
 import {
     addPost,
-    getProfile,
-    getStatus, saveAvatar,
-    updateStatus,
+    requestProfile,
+    requestSaveAvatar,
+    requestStatus, requestUpdateProfile,
+    requestUpdateStatus,
 } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hocs/withAuthRedirect';
+import Profile from './Profile';
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
+    refresh() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             userId = this.props.userId;
@@ -20,9 +21,23 @@ class ProfileContainer extends React.Component {
         this.props.getStatus(userId);
         this.props.getProfile(userId);
     }
+    componentDidMount() {
+        this.refresh();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.match.params.userId !== this.props.match.params.usersId) {
+            this.refresh();
+        }
+    }
 
     render() {
-        return <Profile {...this.props} />;
+        return (
+            <Profile
+                {...this.props}
+                isOwnPage={!!this.props.match.params.userId}
+            />
+        );
     }
 }
 
@@ -33,11 +48,12 @@ const mapStateToProps = (state) => ({
 
 const enhance = compose(
     connect(mapStateToProps, {
-        getProfile,
-        getStatus,
-        updateStatus,
+        getProfile: requestProfile,
+        getStatus: requestStatus,
+        updateStatus: requestUpdateStatus,
         addPost,
-        saveAvatar,
+        saveAvatar: requestSaveAvatar,
+        updateProfile: requestUpdateProfile,
     }),
     withRouter,
     withAuthRedirect

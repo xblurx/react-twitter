@@ -22,7 +22,12 @@ let initState = {
             likes: '214',
         },
     ],
-    profile: null,
+    profile: {
+        photos: {
+            small: '',
+            large: '',
+        },
+    },
     status: '',
 };
 
@@ -57,7 +62,7 @@ export const profileReducer = (state = initState, action) => {
         case SET_AVATAR:
             return {
                 ...state,
-                profile: {...state.profile, photos: action.photos},
+                profile: { ...state.profile, photos: action.photos },
             };
         default:
             return state;
@@ -70,23 +75,33 @@ export const setStatus = (status) => ({ type: SET_STATUS, status });
 export const addPost = (message) => ({ type: ADD_POST, message });
 export const deletePost = (id) => ({ type: DELETE_POST, id });
 
-export const getProfile = (userId) => async (dispatch) => {
+export const requestProfile = (userId) => async (dispatch) => {
     let response = await getAPI.getProfile(userId);
     dispatch(setUserProfile(response));
 };
 
-export const getStatus = (userId) => async (dispatch) => {
+export const requestStatus = (userId) => async (dispatch) => {
     const data = await getAPI.getStatus(userId);
     dispatch(setStatus(data));
 };
 
-export const updateStatus = (status) => (dispatch) => {
+export const requestUpdateStatus = (status) => (dispatch) => {
     getAPI.updateStatus(status).then((resultCode) => {
         if (!resultCode) dispatch(setStatus(status));
     });
 };
 
-export const saveAvatar = (file) => async (dispatch) => {
+export const requestSaveAvatar = (file) => async (dispatch) => {
     const data = await putAPI.updateAvatar(file);
     if (!data.resultCode) dispatch(setAvatar(data.photos));
+};
+
+export const requestUpdateProfile = (data) => async (dispatch, getState) => {
+    let userId = getState().auth.id;
+    const response = await putAPI.updateProfile(data);
+    if (!response.data.resultCode) {
+        dispatch(requestProfile(userId));
+        return 0
+    }
+    return response.data.messages;
 };

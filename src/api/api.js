@@ -40,10 +40,14 @@ export const putAPI = {
             .then((response) => response.resultCode);
     },
     updateAvatar(file) {
-        const formData = new FormData(file);
+        const formData = new FormData();
+        formData.append('image', file);
         return instance
             .put('profile/photo', formData)
             .then((response) => response.data);
+    },
+    updateProfile(data) {
+        return instance.put('/profile', data).then((response) => response);
     },
     login(data = null) {
         let { email, password, rememberMe } = data;
