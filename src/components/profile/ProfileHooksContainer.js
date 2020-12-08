@@ -16,11 +16,12 @@ import {
     requestProfile,
     requestUpdateStatus,
     requestSaveAvatar,
+    addPost,
+    requestUpdateProfile,
 } from '../../redux/profile-reducer';
 
-const ProfileHooksBugged = (props) => {
+const ProfileHooksContainer = (props) => {
     const history = useHistory();
-
     const dispatch = useDispatch();
     const profile = useSelector(getProfile);
     const profilePage = useSelector(getProfilePage);
@@ -30,10 +31,13 @@ const ProfileHooksBugged = (props) => {
     const updateStatus = (status) => {
         dispatch(requestUpdateStatus(status));
     };
+    const updateProfile = (profileData, e) => {
+        dispatch(requestUpdateProfile(profileData));
+    };
     const saveAvatar = (file) => {
         dispatch(requestSaveAvatar(file));
     };
-    const addPost = (message) => {
+    const addPostHandler = (message) => {
         dispatch(addPost(message));
     };
 
@@ -44,7 +48,7 @@ const ProfileHooksBugged = (props) => {
         history.push({
             pathname: '/profile',
         });
-    });
+    }, [dispatch, history, userId]);
 
     return (
         <div>
@@ -53,12 +57,13 @@ const ProfileHooksBugged = (props) => {
                 status={status}
                 updateStatus={updateStatus}
                 saveAvatar={saveAvatar}
-                isOwnPage={!!userId}
+                updateProfile={updateProfile}
+                isOwnPage={!!props.match.params.userId}
             />
-            <CreatePost profilePage={profilePage} addPost={addPost} />
+            <CreatePost profilePage={profilePage} addPost={addPostHandler} />
             <MyPosts posts={posts} />
         </div>
     );
 };
 
-// export default ProfileHooksBugged;
+export default ProfileHooksContainer;

@@ -8,13 +8,13 @@ import Home from './components/home/Home';
 import NavigationBar from './components/nav/Nav';
 import Music from './components/music/Music';
 import Videos from './components/videos/Videos';
-import ProfileContainer from './components/profile/ProfileContainer';
 import MessagesContainer from './components/messages/MessagesContainer';
 import UsersContainer from './components/users/UsersContainer';
 import HeaderContainer from './components/header/HeaderContainer';
 import LoginContainer from './components/login/LoginContainer';
 import { initApp } from './redux/app-reducer';
 import Loader from './components/users/Loader';
+import ProfileHooksContainer from './components/profile/ProfileHooksContainer';
 
 class App extends React.Component {
     componentDidMount() {
@@ -37,7 +37,7 @@ class App extends React.Component {
                         <Route exact path="/" component={Home} />
                         <Route
                             path="/profile/:userId?"
-                            component={ProfileContainer}
+                            component={ProfileHooksContainer}
                         />
                         <Route path="/messages" component={MessagesContainer} />
                         <Route path="/users" component={UsersContainer} />

@@ -6,13 +6,14 @@ import {
     addPost,
     requestProfile,
     requestSaveAvatar,
-    requestStatus, requestUpdateProfile,
+    requestStatus,
+    requestUpdateProfile,
     requestUpdateStatus,
 } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hocs/withAuthRedirect';
 import Profile from './Profile';
 
-class ProfileContainer extends React.Component {
+class ProfileContainerDeprecated extends React.Component {
     refresh() {
         let userId = this.props.match.params.userId;
         if (!userId) {
@@ -22,6 +23,7 @@ class ProfileContainer extends React.Component {
         this.props.getProfile(userId);
     }
     componentDidMount() {
+        let isOwnPage = this.props.match.params.userId;
         this.refresh();
     }
 
@@ -59,4 +61,4 @@ const enhance = compose(
     withAuthRedirect
 );
 
-export default enhance(ProfileContainer);
+export default enhance(ProfileContainerDeprecated);

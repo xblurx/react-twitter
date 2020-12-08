@@ -34,17 +34,14 @@ const setAuth = (id, email, login, isAuth) => ({
 export const getAuth = () => (dispatch) => {
     return getAPI.authMe().then((data) => {
         if (!data.resultCode) {
-            console.log('authReducer getAuth write auth');
             let { id, email, login } = data.data;
             dispatch(setAuth(id, email, login, true));
-            console.log(`state after auth-reducer/getAuth: ${window.store.getState().auth.isAuth}`);
         }
     });
 };
 
 export const logIn = (loginData) => (dispatch) => {
     putAPI.login(loginData).then((response) => {
-        console.log(response);
         if (!response.resultCode) {
             dispatch(getAuth());
         }
